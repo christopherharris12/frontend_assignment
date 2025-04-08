@@ -25,21 +25,27 @@
 
     <script>
         document.getElementById("myForm").addEventListener("submit", function(event) {
-            const inputs = document.querySelectorAll('input[type="text"][required]');
-            let isValid = true;
-            let errorMessage = "";
-
-            inputs.forEach(function(input) {
-                if (input.value.trim() === "") {
-                    isValid = false;
-                    errorMessage += `The ${input.name} field is required.\n`;
-                }
-            });
-            if (!isValid) {
-                alert(errorMessage);
-                event.preventDefault(); 
+          const inputs = document.querySelectorAll('input[required]');
+          let isValid = true;
+          let errorMessage = "";
+    
+          inputs.forEach(function(input) {
+            input.classList.remove("error");
+    
+            if (input.value.trim() === "") {
+              isValid = false;
+              input.classList.add("error");
+    
+              const label = input.placeholder || input.name;
+              errorMessage += `- ${label}\n`;
             }
+          });
+    
+          if (!isValid) {
+            event.preventDefault();
+            alert(errorMessage);
+          }
         });
-    </script>
+      </script>
 </body>
 </html>
